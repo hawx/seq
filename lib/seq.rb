@@ -1,3 +1,8 @@
+unless defined?(Float::INFINITY)
+  # Define Float::INFINITY if not previously defined
+  Float::INFINITY = 1.0/0
+end
+
 # A Seq will cycle over a list returning a certain number of items.
 #
 # @example With number of items to return
@@ -27,21 +32,13 @@
 #
 class Seq
 
-  # Infinity, this is the default number of items to return.
-  Infinity = 1.0/0
-
   # Creates a new instance of Seq.
   #
-  # @param list [Array] 
-  #   List of values to cycle over
-  # @param items [Integer] 
-  #   Number of values to return
-  # @param offset [Integer] 
-  #   Index of item in +list+ to start at
-  # @param default [Object]
-  #   Value to return when finished cycling
-  #
-  def initialize(list=[], items=Infinity, offset=0, default=nil)
+  # @param list [Array] List of values to cycle over
+  # @param items [Integer] Number of values to return
+  # @param offset [Integer] Index of item in +list+ to start at
+  # @param default [Object] Value to return when finished cycling
+  def initialize(list=[], items=Float::INFINITY, offset=0, default=nil)
     @list    = list
     @items   = items
     @offset  = offset
@@ -56,9 +53,8 @@ class Seq
     @index  = @offset
   end
   
-  # @return [Object]
-  #  Until ended returns the next item from the list, when ended it returns the
-  #  default item.
+  # @return Until ended it returns the next item from the list, when ended it returns 
+  #  the default item.
   def next
     if ended?
       @default
@@ -106,16 +102,19 @@ class Seq
     @list
   end
   
-  # @return [true, false] Whether the Seq returns infinite items.
+  # @return Whether the Seq returns infinite items.
   def infinite?
-    @items == Infinity
+    @items == Float::INFINITY
   end
 
-  # @return [true, false] Whether the Seq has returned enough items.
+  # @return Whether the Seq has returned enough items.
   def ended?
     @cycles >= @items
   end
   
+  # Any method called on a Seq with ending with !, will be caught by method
+  # missing, it will then attempt to call the non ! version but will not
+  # alter the index or number of cycles completed. 
   def method_missing(sym, *args, &block)
     if sym.to_s[-1] == "!" && 
       self.respond_to?(sym.to_s[0..-2].to_sym) &&
@@ -131,8 +130,8 @@ class Seq
       super
     end
   end
-  
 end
 
-require_relative 'seq/random'
-require_relative 'seq/lazy'
+require 'seq/lazy'
+require 'seq/random'
+require 'seq/version'
