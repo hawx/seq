@@ -133,3 +133,5 @@ class Seq
   end
   
 end
+
+require_relative 'seq/random'
