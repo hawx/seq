@@ -72,3 +72,24 @@ s.entries #=> [1, 2, 3, 4, 1, 2]
 s.reject! {|i| i < 3 } #=> [3, 4]
 ```
 
+## Seq::Random
+
+A subclass of Seq which returns random elements.
+
+```ruby
+r = Seq::Random.new([1,2,3], 5)
+r.entries #=> [2, 1, 1, 3, 2]
+r.entries #=> [1, 3, 2, 3, 3]
+```
+
+## Seq::Lazy
+
+Lazily evaluates a block using starting list given.
+
+```ruby
+fibs = Seq::Lazy.new([1,1]) {|list| list[-1] + list[-2] }
+fibs.take(10) #=> [1, 1, 2, 3, 5, 8, 13, 21, 34, 55] 
+fibs.take(20) #=> [89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946, 17711, 28657, 46368, 75025, 121393, 196418, 317811, 514229, 832040]
+fibs.next! #=> 832040
+fibs.reset
+```
