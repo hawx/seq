@@ -16,5 +16,10 @@ class LazySeqTest < MiniTest::Unit::TestCase
     assert_equal 8, @seq.next
     assert_equal 13, @seq.next
   end
+  
+  def test_offset_works
+    s = Seq::Lazy.new([1], 1.0/0, 5) {|l| l.last + 1 }
+    assert_equal 6, s.next
+  end
 
 end
