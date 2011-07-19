@@ -15,10 +15,10 @@ class SeqTest < MiniTest::Unit::TestCase
   
   def test_can_become_expanded_array
     assert_raises RangeError do 
-      @empty.to_a(true)
+      @empty.entries
     end
     
-    assert_equal [2, 3, 4, 1, 2, 3, 4], @seq.to_a(true)
+    assert_equal [2, 3, 4, 1, 2, 3, 4], @seq.entries
   end
   
   def test_can_iterate
@@ -40,7 +40,7 @@ class SeqTest < MiniTest::Unit::TestCase
     end
   end
   
-  def test_gets_next_item
+  def test_gets_next_item 
     assert_equal nil, @empty.next
     assert_equal nil, @empty.next
     

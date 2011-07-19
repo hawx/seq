@@ -61,18 +61,18 @@ class Seq
   
   include Enumerable
 
-  def to_a(expanded=false)
-    if expanded
-      raise RangeError if infinite?
-      
-      i, c = @index, @cycles
-      r = self.entries
-      @index, @cycles = i, c
-      
-      r
-    else
-      @list
-    end
+  def entries
+    raise RangeError if infinite?
+  
+    i, c = @index, @cycles
+    r = super
+    @index, @cycles = i, c
+    r
+  end
+
+  # @return [Array] Returns the original list
+  def to_a
+    @list
   end
   
   def infinite?
