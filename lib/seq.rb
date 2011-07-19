@@ -22,11 +22,15 @@ class Seq
     self.reset
   end
   
+  # Resets the Seqs position to the same as when initialized.
   def reset
     @cycles = 0
     @index  = @offset
   end
   
+  # @return [Object]
+  #  Until ended returns the next item from the list, when ended it returns the
+  #  default item.
   def next
     if ended?
       @default
@@ -35,12 +39,20 @@ class Seq
     end
   end
   
+  # Increment the list index, the number of cycles completed and if at the end of 
+  # the list returns to the first item.
+  # 
+  # @return [Integer] Number of items that have been returned.
   def inc
-    @index  += 1
+    if @index+1 == @list.size
+      @index = 0 
+    else
+      @index += 1
+    end
     @cycles += 1
-    @index   = 0 if @index == @list.size
   end
   
+  # Iterates over each item as returned by #next until #ended?.
   def each
     until ended?
       yield self.next
