@@ -1,5 +1,34 @@
+# A Seq will cycle over a list returning a certain number of items.
+#
+# @example With number of items to return
+#
+#   s = Seq.new([1, 2], 4)
+#   s.next #=> 1
+#   s.next #=> 2
+#   s.next #=> 1
+#   s.next #=> 2
+#   s.next #=> nil
+#
+# @example With an offset
+#
+#   s = Seq.new([1, 2, 3, 4, 5], 2, 3)
+#   s.next #=> 4
+#   s.next #=> 5
+#   s.next #=> 1
+#   # etc
+#   s.next #=> 5  # note: finishes on last item of list
+#
+# @example With default value
+#
+#   s = Seq.new([1, 2], 2, 0, 2)
+#   s.next #=> 1
+#   s.next #=> 2
+#   s.next #=> 2
+#   s.next #=> 2
+#
 class Seq
 
+  # Infinity, this is the default number of items to return.
   Infinity = 1.0/0
 
   # Creates a new instance of Seq.
@@ -61,6 +90,9 @@ class Seq
   
   include Enumerable
 
+  # @return [Array] The items that would be returned by repeated calls to #next
+  #  until #ended?.
+  # @raise [RangeError] If #infinite?, otherwise it creates an infinite loop!
   def entries
     raise RangeError if infinite?
   
@@ -75,10 +107,12 @@ class Seq
     @list
   end
   
+  # @return [true, false] Whether the Seq returns infinite items.
   def infinite?
     @items == Infinity
   end
 
+  # @return [true, false] Whether the Seq has returned enough items.
   def ended?
     @cycles >= @items
   end
