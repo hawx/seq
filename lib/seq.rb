@@ -135,3 +135,4 @@ class Seq
 end
 
 require_relative 'seq/random'
+require_relative 'seq/lazy'
