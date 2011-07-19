@@ -11,12 +11,11 @@
 #
 # @example With an offset
 #
-#   s = Seq.new([1, 2, 3, 4, 5], 2, 3)
+#   s = Seq.new([1, 2, 3, 4, 5], 5, 3)
 #   s.next #=> 4
 #   s.next #=> 5
 #   s.next #=> 1
 #   # etc
-#   s.next #=> 5  # note: finishes on last item of list
 #
 # @example With default value
 #
@@ -115,6 +114,22 @@ class Seq
   # @return [true, false] Whether the Seq has returned enough items.
   def ended?
     @cycles >= @items
+  end
+  
+  def method_missing(sym, *args, &block)
+    if sym.to_s[-1] == "!" && 
+      self.respond_to?(sym.to_s[0..-2].to_sym) &&
+      ! [:infinite?, :ended?, :to_a, :entries, :inc, :reset].include?(sym.to_s[0..-2].to_sym)
+      
+      begin
+        i, c = @index, @cycles
+        self.send(sym.to_s[0..-2].to_sym, *args, &block)
+      ensure
+        @index, @cycles = i, c
+      end
+    else
+      super
+    end
   end
   
 end
