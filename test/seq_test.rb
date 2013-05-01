@@ -12,21 +12,21 @@ class SeqTest < MiniTest::Unit::TestCase
     assert_equal [], @empty.to_a
     assert_equal [1, 2, 3, 4], @seq.to_a
   end
-  
+
   def test_can_become_expanded_array
-    assert_raises RangeError do 
+    assert_raises RangeError do
       @empty.entries
     end
-    
+
     assert_equal [2, 3, 4, 1, 2, 3, 4], @seq.entries
   end
-  
+
   def test_can_iterate
     @empty.each_with_index do |a,i|
       assert_equal a, nil
       break if i > 3
     end
-    
+
     @seq.each_with_index do |a,i|
       assert_equal a, case i
         when 0 then 2
@@ -39,11 +39,11 @@ class SeqTest < MiniTest::Unit::TestCase
       end
     end
   end
-  
-  def test_gets_next_item 
+
+  def test_gets_next_item
     assert_equal nil, @empty.next
     assert_equal nil, @empty.next
-    
+
     assert_equal 2, @seq.next
     assert_equal 3, @seq.next
     assert_equal 4, @seq.next

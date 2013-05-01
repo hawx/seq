@@ -19,7 +19,7 @@ class Seq
   #   fibs.take!(2) #=> [21, 34]
   #
   class Lazy < Seq
-    
+
     # Creates a new Lazy seq instance.
     #
     # @param list [Array] Starting values
@@ -35,24 +35,24 @@ class Seq
       @block   = block
       @offset  = offset
       @default = default
-      
+
       self.reset
     end
-    
-    # Resets the state of the lazy seq. It also calculates any values 
+
+    # Resets the state of the lazy seq. It also calculates any values
     # necessary to get to the offset.
     def reset
       @index  = @list.size
       @cycles = 0
-      
+
       until @list.size >= @offset
         @list[@index] = @block.call(@list[0..@index-1])
         @index += 1
       end
-      
+
       @index = @offset
     end
-    
+
     # @return [Object]
     #  Until ended it returns the next item from +list+ if it exists or calculates
     #  it then stores it in +list+, if ended it returns the default value.
@@ -68,6 +68,6 @@ class Seq
         end
       end
     end
-  
+
   end
 end
