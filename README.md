@@ -51,11 +51,11 @@ s.next #=> nil
 
 # Standard methods will increment the number of items that have been returned meaning
 # you have to call #reset
-s.reset 
+s.reset
 s.next #=> 1
 
 # You can use special ! versions to avoid incrementing the number of cycles, but note
-# this will start and finish based on the current index and items returned. So here 
+# this will start and finish based on the current index and items returned. So here
 # we are on the second item in the original list, ie. "2".
 
 s.map! {|i| i * 2 } #=> [4, 6, 8, 2, 4, 6, 8, 2, 4]
@@ -88,8 +88,19 @@ Lazily evaluates a block using starting list given.
 
 ```ruby
 fibs = Seq::Lazy.new([1,1]) {|list| list[-1] + list[-2] }
-fibs.take(10) #=> [1, 1, 2, 3, 5, 8, 13, 21, 34, 55] 
+fibs.take(10) #=> [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 fibs.take(20) #=> [89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946, 17711, 28657, 46368, 75025, 121393, 196418, 317811, 514229, 832040]
 fibs.next! #=> 832040
 fibs.reset
+```
+
+
+## Seq::Paged
+
+Returns elements from a page one at a time.
+
+```ruby
+s = Seq::Paged.new {|page| [page, page+1, page+2] }
+s.take(10)  #=> [0, 1, 2,  1, 2, 3,  2, 3, 4,  3]
+            #  extra spacing added to show pages
 ```
