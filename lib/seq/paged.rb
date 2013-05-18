@@ -1,3 +1,5 @@
+require 'seq'
+
 class Seq
 
   # Paged seqs evaluate a block that returns a page (Array) of items that are

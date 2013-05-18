@@ -77,6 +77,8 @@ s.reject! {|i| i < 3 } #=> [3, 4]
 A subclass of Seq which returns random elements.
 
 ```ruby
+require 'seq/random'
+
 r = Seq::Random.new([1,2,3], 5)
 r.entries #=> [2, 1, 1, 3, 2]
 r.entries #=> [1, 3, 2, 3, 3]
@@ -87,6 +89,8 @@ r.entries #=> [1, 3, 2, 3, 3]
 Lazily evaluates a block using starting list given.
 
 ```ruby
+require 'seq/lazy'
+
 fibs = Seq::Lazy.new([1,1]) {|list| list[-1] + list[-2] }
 fibs.take(10) #=> [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 fibs.take(20) #=> [89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946, 17711, 28657, 46368, 75025, 121393, 196418, 317811, 514229, 832040]
@@ -100,6 +104,8 @@ fibs.reset
 Returns elements from a page one at a time.
 
 ```ruby
+require 'seq/paged'
+
 s = Seq::Paged.new {|page| [page, page+1, page+2] }
 s.take(10)  #=> [0, 1, 2,  1, 2, 3,  2, 3, 4,  3]
             #  extra spacing added to show pages

@@ -1,3 +1,5 @@
+require 'seq/version'
+
 unless defined?(Float::INFINITY)
   # Define Float::INFINITY if not previously defined
   Float::INFINITY = 1.0/0
@@ -131,8 +133,3 @@ class Seq
     end
   end
 end
-
-require 'seq/lazy'
-require 'seq/paged'
-require 'seq/random'
-require 'seq/version'
