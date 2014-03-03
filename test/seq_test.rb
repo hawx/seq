@@ -1,7 +1,7 @@
 $: << File.dirname(__FILE__)
 require 'helper'
 
-class SeqTest < MiniTest::Unit::TestCase
+class SeqTest < MiniTest::Test
 
   def setup
     @empty = Seq.new

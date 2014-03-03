@@ -7,6 +7,4 @@ require 'seq/paged'
 require 'seq/pager'
 require 'seq/random'
 
-require 'rubygems'
-require 'minitest/unit'
 require 'minitest/autorun'

@@ -1,7 +1,7 @@
 $: << File.dirname(__FILE__) + '/..'
 require 'helper'
 
-class LazySeqTest < MiniTest::Unit::TestCase
+class LazySeqTest < MiniTest::Test
 
   def setup
     @seq = Seq::Lazy.new([1, 1]) {|l| l[-1] + l[-2] }

@@ -1,7 +1,7 @@
 $: << File.dirname(__FILE__) + '/..'
 require 'helper'
 
-class PagerSeqTest < MiniTest::Unit::TestCase
+class PagerSeqTest < MiniTest::Test
 
   PAGE_COUNT = 10
   PAGE_SIZE  = 10
