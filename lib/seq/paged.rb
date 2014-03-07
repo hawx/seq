@@ -53,6 +53,15 @@ class Seq
       end
     end
 
+    # Iterates over each item as returned by #next until #ended?.
+    def each
+      loop do
+        val = self.next
+        return if self.ended?
+        yield val
+      end
+    end
+
     # @return Whether the Paged seq has returned all of its items.
     def ended?
       @index >= @items.size && @done
@@ -77,7 +86,5 @@ class Seq
       @index += 1
       item
     end
-
-
   end
 end

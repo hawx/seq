@@ -29,14 +29,15 @@ class SeqTest < MiniTest::Test
 
     @seq.each_with_index do |a,i|
       assert_equal a, case i
-        when 0 then 2
-        when 1 then 3
-        when 2 then 4
-        when 3 then 1
-        when 4 then 2
-        when 5 then 3
-        when 6 then 4
-      end
+                      when 0 then 2
+                      when 1 then 3
+                      when 2 then 4
+                      when 3 then 1
+                      when 4 then 2
+                      when 5 then 3
+                      when 6 then 4
+                      else assert_fail
+                      end
     end
   end
 
@@ -61,5 +62,4 @@ class SeqTest < MiniTest::Test
     @seq.reset
     assert_equal 2, @seq.next
   end
-
 end
